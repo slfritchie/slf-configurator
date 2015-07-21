@@ -10,22 +10,22 @@ case $OS_DISTRO in
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
         apt-get install -y \
             build-essential \
-            git git-core
+            git git-core expect
     ;;
     centos)
         yum install -y \
 	    make gcc gcc-c++ kernel-devel m4 \
-            git
+            git expect
     ;;
     freebsd)
         ## WEIRD: 'pkg' install of gcc doesn't have 'gcc' executable anywhere?
         env ASSUME_ALWAYS_YES=yes pkg install -f \
             clang36 m4 autoconf autotools \
-            git gmake
+            git gmake expect
     ;;
     smartos)
         pkgin -y install gcc47 m4 autoconf \
-            git-base gmake
+            git-base gmake expect
     ;;
 esac
 
