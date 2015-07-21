@@ -12,13 +12,13 @@ case $OS_DISTRO in
         apt-get update
         apt-get install -y \
 	    man sudo curl less tmux wget \
-            htop iftop dstat lsof rsync s3cmd
+            htop iftop dstat lsof rsync s3cmd tcsh sysstat
     ;;
     centos)
         sed -i 's/enabled=0/enabled=1/g' /etc/yum.repos.d/CentOS-Base.repo
         yum install -y \
             man sudo curl less tmux wget \
-            htop iftop dstat lsof rsync s3cmd
+            htop iftop dstat lsof rsync s3cmd tcsh sysstat
         # NOTE: centos6: not found: htop tmux iftop
     ;;
     freebsd)
@@ -39,7 +39,7 @@ case $OS_DISTRO in
     ;;
     smartos)
         pkgin update
-        pkgin -y install curl less tmux wget htop iftop rsync s3cmd
+        pkgin -y install curl less tmux wget htop iftop rsync s3cmd tcsh
     ;;
 esac
 
