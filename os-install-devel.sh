@@ -15,7 +15,7 @@ case $OS_DISTRO in
     centos)
         yum install -y \
 	    make gcc gcc-c++ kernel-devel m4 \
-            git expect
+            git expect patch
     ;;
     freebsd)
         ## WEIRD: 'pkg' install of gcc doesn't have 'gcc' executable anywhere?

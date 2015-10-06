@@ -24,7 +24,7 @@ case $OS_DISTRO in
     freebsd)
         env ASSUME_ALWAYS_YES=yes pkg install -f \
                 sudo curl less tmux wget \
-            htop iftop       lsof rsync py27-s3cmd
+            htop iftop       lsof rsync py27-s3cmd bash
 
         # Post-install goop for htop
         if [ ! -d /usr/compat/linux/proc ]; then
