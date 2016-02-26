@@ -19,7 +19,7 @@ TARBALL=`basename $OTP_SRC`
 SRCBASE=`basename $TARBALL .tar.gz`
 
 if [ ! -f /usr/local/src/$TARBALL ]; then
-    (cd /usr/local/src/tmp ; wget --tries=10 $OTP_SRC && mv $TARBALL ..)
+    (cd /usr/local/src/tmp ; rm -f $TARBALL ; wget --no-verbose --tries=10 $OTP_SRC && mv $TARBALL ..)
 fi
 
 BDIR=/usr/local/src/build
