@@ -9,17 +9,20 @@ source ./corfu-cluster.sh
 
 out_dir=$CORFU_LOG_DIR/console
 mkdir -p $out_dir
-pid_dir=$CORFU_LOG_DIR/console
+pid_dir=$CORFU_LOG_DIR/pid
 mkdir -p $pid_dir
 case $type in
     seq*)
-	`corfu_fmt_sequencer_cmd 1` > $out_dir/seq.$num 2>&1 &
+	type=seq
+	exec `corfu_fmt_sequencer_cmd $num` >> $out_dir/seq.$num 2>&1 &
 	;;
     lay*)
-	`corfu_fmt_layout_cmd 1` > $out_dir/layout.$num 2>&1 &
+	type=layout
+	exec `corfu_fmt_layout_cmd $num` >> $out_dir/layout.$num 2>&1 &
 	;;
     log*)
-	`corfu_fmt_log_cmd 1` > $out_dir/log.$num 2>&1 &
+	type=log
+	exec `corfu_fmt_log_cmd $num` >> $out_dir/log.$num 2>&1 &
 	;;
     *)
 	echo "Usage: $0 seq|layout|log instance-number"

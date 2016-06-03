@@ -49,3 +49,34 @@ corfu_fmt_cmd () {
 	       `eval $debug_str` `eval $port_str`
     fi
 }
+
+corfu_max_type_idx () {
+    c_type="$1"
+    i=-1
+    go=yes
+
+    # The only kludge that comes to mind right now {sigh}.  Look away.
+    case $c_type in
+	sequencer)
+	    base=CORFU_SEQUENCER_PORT_
+	    ;;
+	layout)
+	    base=CORFU_LAYOUT_PORT_
+	    ;;
+	log)
+	    base=CORFU_LOG_PORT_
+	    ;;
+	*)
+	    echo "Unknown c_type: $c_type"
+	    exit 1
+    esac
+    while [ ! -z $go ]; do
+	j=`expr $i + 1`
+	tmp1="echo \$${base}${j}"
+	go=`eval $tmp1`
+	if [ -z "$go" ]; then
+	    echo $i
+	fi
+	i=`expr $i + 1`
+    done
+}
