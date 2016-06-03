@@ -43,7 +43,7 @@ corfu_fmt_cmd () {
     if [ `eval $type_str` = memory ]; then
 	echo TODO: memory type printf
     else
-	log_dir="$CORFU_LOG_DIR/${c_type}.${i}"
+	log_dir="$CORFU_LOG_DIR/log/${c_type}.${i}"
 	mkdir -p "$log_dir"
 	printf "$CORFU_CMD" "$log_dir" `eval $host_str` \
 	       `eval $debug_str` `eval $port_str`
