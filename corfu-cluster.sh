@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Utilities for CorfuDB server management
+
 corfu_fmt_sequencer_cmd () {
     corfu_fmt_cmd sequencer "$1"
 }
@@ -12,27 +14,33 @@ corfu_fmt_log_cmd () {
     corfu_fmt_cmd log "$1"
 }
 
+corfu_fmt_log_dir () {
+    c_type="$1"
+    idx="$2"
+    echo "$CORFU_LOG_DIR/log/${c_type}.${idx}"
+}
+
 corfu_fmt_cmd () {
     c_type="$1"
-    i="$2"
+    idx="$2"
     case $c_type in
 	sequencer)
-	    type_str="echo \$CORFU_SEQUENCER_TYPE_${i}"
-	    host_str="echo \$CORFU_SEQUENCER_HOST_${i}"
-	    port_str="echo \$CORFU_SEQUENCER_PORT_${i}"
-	    debug_str="echo \$CORFU_SEQUENCER_DEBUG_${i}"
+	    type_str="echo \$CORFU_SEQUENCER_TYPE_${idx}"
+	    host_str="echo \$CORFU_SEQUENCER_HOST_${idx}"
+	    port_str="echo \$CORFU_SEQUENCER_PORT_${idx}"
+	    debug_str="echo \$CORFU_SEQUENCER_DEBUG_${idx}"
 	    ;;
 	layout)
-	    type_str="echo \$CORFU_LAYOUT_TYPE_${i}"
-	    host_str="echo \$CORFU_LAYOUT_HOST_${i}"
-	    port_str="echo \$CORFU_LAYOUT_PORT_${i}"
-	    debug_str="echo \$CORFU_LAYOUT_DEBUG_${i}"
+	    type_str="echo \$CORFU_LAYOUT_TYPE_${idx}"
+	    host_str="echo \$CORFU_LAYOUT_HOST_${idx}"
+	    port_str="echo \$CORFU_LAYOUT_PORT_${idx}"
+	    debug_str="echo \$CORFU_LAYOUT_DEBUG_${idx}"
 	    ;;
 	log)
-	    type_str="echo \$CORFU_LOG_TYPE_${i}"
-	    host_str="echo \$CORFU_LOG_HOST_${i}"
-	    port_str="echo \$CORFU_LOG_PORT_${i}"
-	    debug_str="echo \$CORFU_LOG_DEBUG_${i}"
+	    type_str="echo \$CORFU_LOG_TYPE_${idx}"
+	    host_str="echo \$CORFU_LOG_HOST_${idx}"
+	    port_str="echo \$CORFU_LOG_PORT_${idx}"
+	    debug_str="echo \$CORFU_LOG_DEBUG_${idx}"
 	    ;;
 	*)
 	    echo "Unknown c_type: $c_type"
@@ -43,7 +51,7 @@ corfu_fmt_cmd () {
     if [ `eval $type_str` = memory ]; then
 	echo TODO: memory type printf
     else
-	log_dir="$CORFU_LOG_DIR/log/${c_type}.${i}"
+	log_dir=`corfu_fmt_log_dir ${c_type} ${idx}`
 	mkdir -p "$log_dir"
 	printf "$CORFU_CMD" "$log_dir" `eval $host_str` \
 	       `eval $debug_str` `eval $port_str`
