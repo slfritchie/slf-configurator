@@ -14,10 +14,22 @@ corfu_fmt_log_cmd () {
     corfu_fmt_cmd log "$1"
 }
 
-corfu_fmt_log_dir () {
+corfu_fmt_log_path () {
     c_type="$1"
     idx="$2"
-    echo "$CORFU_LOG_DIR/log/${c_type}.${idx}"
+    echo "$CORFU_LOG_PREFIX/${c_type}.${idx}"
+}
+
+corfu_fmt_console_path () {
+    c_type="$1"
+    idx="$2"
+    echo "$CORFU_CONSOLE_PREFIX/${c_type}.${idx}"
+}
+
+corfu_fmt_pid_path () {
+    c_type="$1"
+    idx="$2"
+    echo "$CORFU_PID_PREFIX/${c_type}.${idx}"
 }
 
 corfu_fmt_cmd () {
@@ -51,9 +63,9 @@ corfu_fmt_cmd () {
     if [ `eval $type_str` = memory ]; then
 	echo TODO: memory type printf
     else
-	log_dir=`corfu_fmt_log_dir ${c_type} ${idx}`
-	mkdir -p "$log_dir"
-	printf "$CORFU_CMD" "$log_dir" `eval $host_str` \
+	log_path=`corfu_fmt_log_path ${c_type} ${idx}`
+	mkdir -p `dirname $log_path`
+	printf "$CORFU_CMD" "$log_path" `eval $host_str` \
 	       `eval $debug_str` `eval $port_str`
     fi
 }

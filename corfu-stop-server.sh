@@ -7,32 +7,24 @@ num="$3"
 source $env
 source ./corfu-cluster.sh
 
-pid_dir=$CORFU_LOG_DIR/pid
-case $type in
-    seq*)
-	type=seq
-	;;
-    lay*)
-	type=layout
-	;;
-    log*)
-	type=log
-	;;
-    *)
-	echo "Usage: $0 seq|layout|log instance-number"
-	exit 1
-esac
-
-pid_file=$pid_dir/$type.$num
-pid=`cat $pid_file`
+pid_path=`corfu_fmt_pid_path $type $num`
+pid=`cat $pid_path`
+if [ -z "$pid" ]; then
+    echo "ERROR: pid for type $type number $num does not exist"
+    exit 1
+fi
 
 # NOTE: $pid is the parent bash/shell wrapper process.
 #       We want to kill it and also its child Java VM process
 pgrep -P $pid > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     pkill -P $pid
+    if [ $? -eq 0 ]; then
+	rm $pid_path
+    fi
 else
-    echo "ERROR: pid for type $type number $num does not exist"
+    echo "ERROR: pid $pid for type $type number $num is invalid"
+    exit 1
 fi
 
 exit 0
