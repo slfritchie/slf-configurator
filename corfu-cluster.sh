@@ -100,3 +100,16 @@ corfu_max_type_idx () {
 	i=`expr $i + 1`
     done
 }
+
+join_str () {
+    mid_string=$1
+    shift
+
+    while [ $# -gt 0 ]; do
+	/bin/echo -n $1
+	if [ $# -ne 1 ]; then
+	    /bin/echo -n "$mid_string"
+	fi
+	shift
+    done
+}
