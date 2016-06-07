@@ -60,7 +60,7 @@ cat<<! > $bootstrap_config
 		     "logServers": [ $log_addresses ]
 		 }
 	     ]}],
-    "epoch": 2
+    "epoch": 0
 }
 !
 
