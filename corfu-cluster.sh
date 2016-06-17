@@ -59,19 +59,20 @@ corfu_fmt_cmd () {
 	    exit 1
     esac
 
-    CORFU_CMD="$CORFU_SRC_DIR/bin/corfu_server -l %s -a %s -t -1 -d %s %s"
+    CORFU_CMD="$CORFU_SRC_DIR/bin/corfu_server %s %s -a %s -t -1 -d %s %s"
     type=`eval $type_str`
     if [ -z "$type" ]; then
 	# No configuration is available for this type + idx.  Perhaps
 	# idx=0 but the config doesn't define any servers for this
 	# type/role?  Let's do nothing by returning something harmless.
-	echo /bin/true
+	echo "/usr/bin/true || /bin/true"
     elif [ $type = memory ]; then
-	echo TODO: memory type printf
+	printf "$CORFU_CMD" -m "" `eval $host_str` \
+	       `eval $debug_str` `eval $port_str`
     else
 	log_path=`corfu_fmt_log_path ${c_type} ${idx}`
 	mkdir -p `dirname $log_path`
-	printf "$CORFU_CMD" "$log_path" `eval $host_str` \
+	printf "$CORFU_CMD" -l "$log_path" `eval $host_str` \
 	       `eval $debug_str` `eval $port_str`
     fi
 }
