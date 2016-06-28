@@ -69,7 +69,7 @@ for addr in `echo $sequencer_addresses $layout_addresses \
                   $log_addresses | sed 's/[,"]//g'`; do
     /bin/echo -n "Corfu server address $addr: "
     ## Boo, the cmdlet thingie does not alter its exit status............
-    res=`$CORFU_SRC_DIR/bin/corfu_layout corfu_layout bootstrap \
+    res=`$CORFU_SRC_DIR/bin/corfu_layout bootstrap \
     				    -l $bootstrap_config $addr 2>&1`
     echo "$res"
     echo "$res" | grep -q NACK
