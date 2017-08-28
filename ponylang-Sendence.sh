@@ -29,6 +29,6 @@ case $OS_DISTRO in
     ;;
 esac
 
-$MAKE clean && $MAKE -j4 && $MAKE destdir=/usr/local/pony/Sendence install && exit 0
+$MAKE clean && $MAKE -j4 && $MAKE destdir=/usr/local/pony/Sendence install && $MAKE clean && exit 0
 
 exit 1

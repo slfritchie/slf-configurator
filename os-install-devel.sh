@@ -7,10 +7,22 @@ case $OS_DISTRO in
         echo TODO installing XCode and XCode command line utilities?
     ;;
     ubuntu)
+        grep -s llvm-toolchain-xenial-3.9 /etc/apt/sources.list
+        if [ $? -ne 0 ]; then
+            cat <<EOF >> /etc/apt/sources.list
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main
+deb-src http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main
+EOF
+            cd /tmp
+            wget -O llvm-snapshot.gpg.key http://apt.llvm.org/llvm-snapshot.gpg.key
+            sudo apt-key add llvm-snapshot.gpg.key
+            apt-get update
+        fi
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
         apt-get install -y \
             build-essential \
-            git git-core expect
+            git git-core expect \
+            zlib1g-dev libncurses5-dev libssl-dev libpcre2-dev llvm-3.9
     ;;
     centos)
         yum install -y \
