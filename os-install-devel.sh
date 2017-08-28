@@ -20,7 +20,8 @@ case $OS_DISTRO in
     freebsd)
         ## WEIRD: 'pkg' install of gcc doesn't have 'gcc' executable anywhere?
         env ASSUME_ALWAYS_YES=yes pkg install -f \
-            clang36 m4 autoconf autotools \
+            llvm39 libunwind pcre2 \
+	    m4 autoconf autotools \
             git gmake expect
     ;;
     smartos)
