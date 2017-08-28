@@ -19,7 +19,7 @@ case $OS_DISTRO in
 	echo not ready ; exit 1
     ;;
     ubuntu)
-	echo not ready ; exit 1
+	MAKE=make
     ;;
     centos)
 	echo not ready ; exit 1
