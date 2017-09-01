@@ -25,7 +25,7 @@ EOF
         sudo apt-get install -y gcc-5 g++-5
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
         # Also need snappy and lz4 and pip & virtualenv & python-dev
-        sudo apt-get install libsnappy-dev liblz4-dev python-pip python-dev
+        sudo apt-get install -y libsnappy-dev liblz4-dev python-pip python-dev
         sudo pip install virtualenv
 
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
