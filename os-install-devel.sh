@@ -25,12 +25,9 @@ EOF
         sudo apt-get install -y gcc-5 g++-5
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
         # Also need snappy and lz4 and pip & virtualenv & python-dev
-        sudo apt-get install -y libsnappy-dev liblz4-dev python-pip python-dev
+        # But the liblz4-dev package sucks, so deal with that later.
+        sudo apt-get install -y libsnappy-dev python-pip python-dev
         sudo pip install virtualenv
-        if [ ! -e /usr/lib/liblz4.so -a -e /usr/lib/x86_64-linux-gnu/liblz4.so ]; then
-            (cd /usr/lib/x86_64-linux-gnu;
-             for i in liblz4*; do ln -s `pwd`/$i /usr/lib/$i; done)
-        fi
 
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
         apt-get install -y \
@@ -51,6 +48,16 @@ EOF
                 sudo make install
             )
         fi
+
+        # Compile liblz4 from scratch
+        (
+         mkdir -p /usr/local/src
+         cd /usr/local/src
+         git clone https://github.com/lz4/lz4.git
+         cd lz4
+         make
+         make install
+        )
     ;;
     centos)
         yum install -y \
