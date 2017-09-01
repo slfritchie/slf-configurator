@@ -27,6 +27,10 @@ EOF
         # Also need snappy and lz4 and pip & virtualenv & python-dev
         sudo apt-get install -y libsnappy-dev liblz4-dev python-pip python-dev
         sudo pip install virtualenv
+        if [ ! -e /usr/lib/liblz4.so -a -e /usr/lib/x86_64-linux-gnu/liblz4.so ]; then
+            (cd /usr/lib/x86_64-linux-gnu;
+             for i in liblz4*; do ln -s `pwd`/$i /usr/lib/$i; done)
+        fi
 
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
         apt-get install -y \
