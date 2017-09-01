@@ -18,12 +18,21 @@ EOF
             sudo apt-key add llvm-snapshot.gpg.key
             apt-get update
         fi
+
+        # Sendence's ponyc & Wallaroo requires gcc 5 for its atomics support
+	sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install -y gcc-5 g++-5
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 60 --slave /usr/bin/g++ g++ /usr/bin/g++-5
+
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
         apt-get install -y \
             build-essential \
             git git-core expect \
             zlib1g-dev libncurses5-dev libssl-dev llvm-3.9
-            apt-get install -y libpcre2-dev
+
+        # Ubuntu 14/trusty doesn't have a package for pcre2
+        apt-get install -y libpcre2-dev
         if [ $? -ne 0 ]; then
             (
                 cd /tmp
