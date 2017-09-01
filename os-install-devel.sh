@@ -22,7 +22,19 @@ EOF
         apt-get install -y \
             build-essential \
             git git-core expect \
-            zlib1g-dev libncurses5-dev libssl-dev libpcre2-dev llvm-3.9
+            zlib1g-dev libncurses5-dev libssl-dev llvm-3.9
+            apt-get install -y libpcre2-dev
+        if [ $? -ne 0 ]; then
+            (
+                cd /tmp
+                wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre2-10.21.tar.bz2
+                tar xjvf pcre2-10.21.tar.bz2
+                cd pcre2-10.21
+                ./configure --prefix=/usr
+                make
+                sudo make install
+            )
+        fi
     ;;
     centos)
         yum install -y \
