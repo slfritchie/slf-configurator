@@ -23,6 +23,7 @@ case $OS_DISTRO in
         fi
 
         sudo apt-get -y install docker-ce
+        /etc/init.d/docker start
     ;;
     centos)
         echo TODO unfinished ; exit 1
