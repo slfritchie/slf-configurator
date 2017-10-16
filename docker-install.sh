@@ -22,7 +22,7 @@ case $OS_DISTRO in
             apt-get update
         fi
 
-        sudo apt-get -y install docker-ce
+        sudo apt-get -y install docker-ce docker-compose
         /etc/init.d/docker start
     ;;
     centos)
