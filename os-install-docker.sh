@@ -29,7 +29,7 @@ case $OS_DISTRO in
              "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
                 $(lsb_release -cs) \
                    stable"
-        sudo apt-get install docker-ce
+        sudo apt-get install -y docker-ce
     ;;
     centos)
         echo TODO, exiting
