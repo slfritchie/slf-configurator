@@ -22,7 +22,19 @@ case $OS_DISTRO in
             apt-get update
         fi
 
-        sudo apt-get -y install docker-ce docker-compose
+        sudo apt-get -y install docker-ce
+        case $DISTRIB_CODENAME in
+            trusty)
+                sudo apt-get -y install python-pip
+                sudo pip install docker-compose
+                ;;
+            xenial)
+                sudo apt-get -y install docker-compose
+                ;;
+            *)
+                echo TODO unfinished ; exit 1
+                ;;
+        esac
         /etc/init.d/docker start
     ;;
     centos)
