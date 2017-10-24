@@ -89,7 +89,9 @@ exit 0
 #    in our new thingie.
 # 2. Tarball of /apps extracted from the Docker container image
 #    sendence/wallaroo-metrics-ui:0.1, extracted to /apps in our new thingie.
-# 3. The command below:
+# 3. The wallaroo/examples/python/alphabet directory available in our
+#    new thingie.
+# 4. The command below:
 #
 # env LD_LIBRARY_PATH=/tmp/tarball/lib-extra PATH="$PATH:/tmp/tarball/bin" PYTHONPATH="/tmp/tarball/lib/python2.7:/tmp/wallaroo/machida:." machida --application-module alphabet --in 127.0.0.1:7010   --out 127.0.0.1:7002 --metrics 127.0.0.1:5001 --control 127.0.0.1:6000   --external 127.0.0.1:5050 --cluster-initializer --data 127.0.0.1:6001   --name worker-name --ponythreads=1 --ponynoblock
 #
