@@ -68,4 +68,27 @@ do
     cp -p $lib $TARBALL_DIR/lib-extra
 done
 
+# Let's try some Python relocation hackery now.
+# Data from:
+# sudo strace -f -o /tmp/foofoo env PATH="$PATH:$HOME/wallaroo/machida/build" PYTHONPATH="$PYTHONPATH:.:$HOME/wallaroo/machida" machida --application-module alphabet --in 127.0.0.1:7010   --out 127.0.0.1:7002 --metrics 127.0.0.1:5001 --control 127.0.0.1:6000   --external 127.0.0.1:5050 --cluster-initializer --data 127.0.0.1:6001   --name worker-name --ponythreads=1 --ponynoblock
+
+(cd /usr/lib ; tar cf - ./python2.7) | (cd $TARBALL_DIR/lib ; tar xf -)
+(cd /usr/bin ; tar cf - ./python2*) | (cd $TARBALL_DIR/bin ; tar xfp -)
+# Weird, avoid startup errors not finding _sysconfigdata_nd in its
+# usual (?) location in the /usr/lib/python2.7/plat-x86_64-linux-gnu dir.
+(cd $TARBALL_DIR/lib/python2.7 ; ln -s */_sysconfigdata_nd.py .)
+(cd $TARBALL_DIR/lib/python2.7 ; ln -s */_sysconfigdata_nd.pyc .)
+
 exit 0
+
+# Sweet.
+# Machida runs When using:
+#
+# 1. Tarball created by this script, copied to a bare-bones Ubuntu 14.04
+#    container/VM/thingie with zero Python v2 or compiler toolchain installed
+#    in our new thingie.
+# 2. Tarball of /apps extracted from the Docker container image
+#    sendence/wallaroo-metrics-ui:0.1, extracted to /apps in our new thingie.
+# 3. The command below:
+#
+# env LD_LIBRARY_PATH=/tmp/tarball/lib-extra PATH="$PATH:/tmp/tarball/bin" PYTHONPATH="/tmp/tarball/lib/python2.7:/tmp/wallaroo/machida:." machida --application-module alphabet --in 127.0.0.1:7010   --out 127.0.0.1:7002 --metrics 127.0.0.1:5001 --control 127.0.0.1:6000   --external 127.0.0.1:5050 --cluster-initializer --data 127.0.0.1:6001   --name worker-name --ponythreads=1 --ponynoblock
