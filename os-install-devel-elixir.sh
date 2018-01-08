@@ -30,6 +30,7 @@ EOF
             make install
         )
         ## Compile & install Elixir
+        export PATH=${PATH}:/usr/local/erlang/19.3/bin
         (
             ELIXIR_VERSION=v1.2.6
             cd /tmp
