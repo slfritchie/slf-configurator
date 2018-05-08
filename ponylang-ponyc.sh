@@ -53,12 +53,9 @@ EOF
                   sudo make install
                 )
                 ;;
-            xenial)
-                sudo apt-get install -y libsnappy-dev liblz4-dev
-                ;;
             *)
-                echo "TODO, aborting!"
-                exit 1
+		# Assume that we're on a version later than trusty
+                sudo apt-get install -y libsnappy-dev liblz4-dev
                 ;;
         esac
 
