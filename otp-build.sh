@@ -9,8 +9,8 @@
 CONFIG_STAP=""
 
 OTP_VERSION=17.5
-#OTP_SRC=http://www.erlang.org/download/otp_src_17.5.tar.gz
-OTP_SRC=http://slfritchie-jp.s3.amazonaws.com/cache/otp_src_17.5.tar.gz
+OTP_SRC=http://www.erlang.org/download/otp_src_17.5.tar.gz
+#Quicker, if it exists: OTP_SRC=http://slfritchie-jp.s3.amazonaws.com/cache/otp_src_17.5.tar.gz
 OTP_MAN=http://www.erlang.org/download/otp_doc_man_17.5.tar.gz
 OTP_HTML=http://www.erlang.org/download/otp_doc_html_17.5.tar.gz
 
