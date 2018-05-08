@@ -31,6 +31,9 @@ case $OS_DISTRO in
             xenial)
                 sudo apt-get -y install docker-compose
                 ;;
+            artful)
+                sudo apt-get -y install docker-compose
+                ;;
             *)
                 echo TODO unfinished ; exit 1
                 ;;
