@@ -27,6 +27,7 @@ EOF
         # Also need snappy and lz4 and pip & virtualenv & python-dev
         # But the liblz4-dev package sucks, so deal with that later.
         sudo apt-get install -y libsnappy-dev python-pip python-dev
+        sudo apt-get install -y python3-dev
         sudo pip install virtualenv
 
         # See also: https://github.com/gordonguthrie/vagrant-riak.2.0.2-ubuntu-trusty-x64_86/blob/master/provision-riak-2.0.2.vagrant
